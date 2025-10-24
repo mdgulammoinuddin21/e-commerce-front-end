@@ -1,0 +1,55 @@
+<div class="container mt-5">
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="productDetails" class="custom-table">
+
+      <ng-container matColumnDef="ID">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.productId}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Product Name">
+        <th mat-header-cell *matHeaderCellDef> Product Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Product Description">
+        <th mat-header-cell *matHeaderCellDef> Product Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.productDescription}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Product Actual Price">
+        <th mat-header-cell *matHeaderCellDef> Product Actual Price </th>
+        <td mat-cell *matCellDef="let element"> ₹{{element.productActualPrice}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Product Discounted Price">
+        <th mat-header-cell *matHeaderCellDef> Product Discounted Price </th>
+        <td mat-cell *matCellDef="let element"> ₹{{element.productDiscountedPrice}} </td>
+      </ng-container>
+
+      <!-- Edit button -->
+      <ng-container matColumnDef="Edit">
+        <th mat-header-cell *matHeaderCellDef> Edit </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Delete button -->
+      <ng-container matColumnDef="Delete">
+        <th mat-header-cell *matHeaderCellDef> Delete </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button class="delete" (click) = "deleteProduct(element.productId)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </div>
+</div>

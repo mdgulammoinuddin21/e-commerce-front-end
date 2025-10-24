@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-container {
+  width: 95%;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  padding: 20px;
+}
+
+.table-container:hover {
+  box-shadow: 0px 10px 35px rgba(0, 0, 0, 0.3);
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 18px; /* Increased font size */
+}
+
+.mat-header-cell {
+  background-color: #1565c0;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  font-size: 20px; /* Bigger header text */
+  padding: 20px;
+  letter-spacing: 0.5px;
+}
+
+.mat-cell {
+  text-align: center;
+  padding: 18px; /* More spacing between rows */
+  font-size: 18px;
+  color: #333;
+}
+
+.mat-row:nth-child(even) {
+  background-color: #f4f7fc;
+}
+
+.mat-row:hover {
+  background-color: #e3f2fd;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+table {
+  border-radius: 16px;
+  overflow: hidden;
+}
+.delete {
+  color: rgb(238, 38, 38);
+}
