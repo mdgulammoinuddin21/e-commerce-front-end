@@ -3,12 +3,10 @@
 
   <span class="space-buttons"></span>
 
-  <!-- Login Button (only shows when user is NOT logged in) -->
   <button *ngIf="!isLoggedIn()" routerLink="/login" mat-raised-button color="accent">
     Login
   </button>
 
-  <!-- Logout Button (only shows when user IS logged in) -->
   <button *ngIf="isLoggedIn()" (click)="logout()" mat-raised-button color="warn">
     Logout
   </button>

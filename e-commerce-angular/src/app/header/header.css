@@ -1,3 +1,22 @@
+mat-toolbar {
+  background-color: #004F51 !important;
+  color: white !important;
+  font-weight: 500;
+}
+
 .space-buttons {
   flex: 1 1 auto;
+}
+
+mat-toolbar button {
+  margin-right: 20px;
+  transition: transform 0.2s ease;
+}
+
+mat-toolbar button:last-child {
+  margin-right: 0;
+}
+
+mat-toolbar button:hover {
+  transform: scale(1.05);
 }

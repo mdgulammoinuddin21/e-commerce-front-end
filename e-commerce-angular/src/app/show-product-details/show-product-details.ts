@@ -32,24 +32,24 @@ export class ShowProductDetails implements OnInit {
   }
 
   public getAllProducts() {
-  this.productService.getAllProducts()
-    .pipe(
-      map((x: Product[], i) =>
-        x.map((product: Product) =>
-          this.imageProcessingService.createImages(product)
+    this.productService.getAllProducts()
+      .pipe(
+        map((x: Product[], i) =>
+          x.map((product: Product) =>
+            this.imageProcessingService.createImages(product)
+          )
         )
       )
-    )
-    .subscribe({
-      next: (resp: Product[]) => {
-        console.log(resp);
-        this.productDetails = resp;
-      },
-      error: (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    });
-}
+      .subscribe({
+        next: (resp: Product[]) => {
+          console.log(resp);
+          this.productDetails = resp;
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error);
+        }
+      });
+  }
 
   deleteProduct(productId: any) {
     this.productService.deleteProduct(productId).subscribe(
@@ -68,8 +68,10 @@ export class ShowProductDetails implements OnInit {
       data: {
         images: product.productImages
       },
-      height: '500px',
-      width: '800px'
+      width: '70vw',   // 80% of viewport width
+      height: '80vh',  // 80% of viewport height
+      maxWidth: '90vw',
+      maxHeight: '90vh',
     });
   }
 

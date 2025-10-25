@@ -20,5 +20,5 @@ export const routes: Routes = [
             product: ProductResolve
         }
     },
-    {path:'showProductDetails', component:ShowProductDetails, canActivate:[AuthGuard] , data:{roles:['Admin']}}
+    {path:'showProductDetails', component:ShowProductDetails}
 ];

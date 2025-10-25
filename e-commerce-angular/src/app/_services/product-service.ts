@@ -25,12 +25,7 @@ export class ProductService {
   }
 
   public getAllProducts() {
-    const token = this.userAuth.getToken();
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-    return this.httpClient.get<Product[]>("http://localhost:9090/getAllProducts", { headers });
+    return this.httpClient.get<Product[]>("http://localhost:9090/getAllProducts");
   }
 
   public getProductDetailsById(productId: number) {

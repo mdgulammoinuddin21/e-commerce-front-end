@@ -3,8 +3,8 @@
 html {
   @include mat.theme((
     color: (
-      primary: mat.$red-palette,
-      tertiary: mat.$rose-palette,
+      primary: mat.$cyan-palette,
+      tertiary: mat.$orange-palette,
       warn: mat.$red-palette,
     ),
     typography: Roboto,
