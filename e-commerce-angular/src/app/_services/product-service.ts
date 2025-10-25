@@ -25,10 +25,30 @@ export class ProductService {
   }
 
   public getAllProducts() {
-    return this.httpClient.get<Product[]>("http://localhost:9090/getAllProducts");
+    const token = this.userAuth.getToken();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.httpClient.get<Product[]>("http://localhost:9090/getAllProducts", { headers });
   }
 
+  public getProductDetailsById(productId: number) {
+    const token = this.userAuth.getToken();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.httpClient.get<Product>("http://localhost:9090/getProductDetailsById/" + productId, { headers });
+  }
+
+
   public deleteProduct(productId: number) {
-    return this.httpClient.delete("http://localhost:9090/deleteProductDetails/" + productId);
+    const token = this.userAuth.getToken();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.httpClient.delete("http://localhost:9090/deleteProductDetails/" + productId, { headers });
   }
 }
