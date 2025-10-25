@@ -5,33 +5,49 @@ import { Product } from '../_model/product.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from "@angular/material/button";
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ShowProductImagesDialog } from '../show-product-images-dialog/show-product-images-dialog';
+import { ImageProcessing } from '../image-processing';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-show-product-details',
-  imports: [MatTableModule, MatIconModule, MatButtonModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule, MatDialogModule],
   templateUrl: './show-product-details.html',
   styleUrl: './show-product-details.css'
 })
 export class ShowProductDetails implements OnInit {
-  displayedColumns: string[] = ['ID', 'Product Name', 'Product Description', 'Product Actual Price', 'Product Discounted Price', 'Edit', 'Delete'];
+  displayedColumns: string[] = ['ID', 'Product Name', 'Product Description', 'Product Actual Price', 'Product Discounted Price', 'Images', 'Edit', 'Delete'];
   productDetails : Product[] = [];
-  constructor(private productService:ProductService) {}
+  constructor(
+    private productService:ProductService,
+    public imageDialog: MatDialog,
+    private imageProcessingService:ImageProcessing
+  ) {}
 
   ngOnInit(): void {
     this.getAllProducts(); 
   }
 
   public getAllProducts() {
-    this.productService.getAllProducts().subscribe(
-      (response : Product[]) => {
-        console.log(response);
-        this.productDetails=response;
+  this.productService.getAllProducts()
+    .pipe(
+      map((x: Product[], i) =>
+        x.map((product: Product) =>
+          this.imageProcessingService.createImages(product)
+        )
+      )
+    )
+    .subscribe({
+      next: (resp: Product[]) => {
+        console.log(resp);
+        this.productDetails = resp;
       },
-      (error : HttpErrorResponse) => {
-        console.log(error);        
+      error: (error: HttpErrorResponse) => {
+        console.log(error);
       }
-    );
-  }
+    });
+}
 
   deleteProduct(productId: any) {
     this.productService.deleteProduct(productId).subscribe(
@@ -43,4 +59,16 @@ export class ShowProductDetails implements OnInit {
       }
     );
   }
+
+  showImages(product: Product) {
+    console.log(product);
+    this.imageDialog.open(ShowProductImagesDialog, {
+      data: {
+        images: product.productImages
+      },
+      height: '500px',
+      width: '800px'
+    });
+  }
+
 }
