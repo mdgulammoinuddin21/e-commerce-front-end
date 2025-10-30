@@ -8,6 +8,7 @@ import { AuthGuard } from './_auth/auth-guard';
 import { AddNewProduct } from './add-new-product/add-new-product';
 import { ShowProductDetails } from './show-product-details/show-product-details';
 import { ProductResolve } from './product-resolve';
+import { ProductViewDetails } from './product-view-details/product-view-details';
 
 export const routes: Routes = [
     {path:'', component:Home},
@@ -20,5 +21,6 @@ export const routes: Routes = [
             product: ProductResolve
         }
     },
-    {path:'showProductDetails', component:ShowProductDetails}
+    {path:'showProductDetails', component:ShowProductDetails},
+    {path:'productViewDetails', component:ProductViewDetails, resolve: { product: ProductResolve }}
 ];

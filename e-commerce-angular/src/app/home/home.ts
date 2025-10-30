@@ -7,6 +7,7 @@ import { map } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ export class Home implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private imageProcessingService: ImageProcessing
+    private imageProcessingService: ImageProcessing,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -37,12 +39,14 @@ export class Home implements OnInit {
       )
       .subscribe({
         next: (resp: Product[]) => {
-          console.log(resp);
           this.productDetails = resp;
         },
         error: (error: HttpErrorResponse) => {
           console.log(error);
         }
       });
+  }
+  showProductDetails(productId:number) {
+    this.router.navigate(['/productViewDetails', {productId: productId}]);
   }
 }

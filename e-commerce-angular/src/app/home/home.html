@@ -12,10 +12,10 @@
           <div class="price">
             <strong>Rs. {{ p.productDiscountedPrice }}</strong>
             &nbsp;
-            <span class="old-price">₹{{ p.productActualPrice }}</span>
+            <span class="old-price">Rs. {{ p.productActualPrice }}</span>
           </div>
 
-          <button type="button" mat-raised-button color="warn">
+          <button type="button" mat-raised-button color="warn" (click)= "showProductDetails(p.productId)">
             View Details
           </button>
         </div>
