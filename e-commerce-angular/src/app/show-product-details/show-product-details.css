@@ -5,7 +5,7 @@
 }
 
 .table-container {
-  width: 95%;
+  width: 100vw;
   overflow: hidden;
   border-radius: 20px;
   background: #fff;

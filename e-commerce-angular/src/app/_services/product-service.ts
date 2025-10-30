@@ -11,17 +11,8 @@ export class ProductService {
   constructor(private httpClient: HttpClient, private userAuth: UserAuth) { }
 
   public addProduct(product: FormData) {
-    const token = this.userAuth.getToken();
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-
-    return this.httpClient.post<Product>(
-      "http://localhost:9090/addNewProduct",
-      product,
-      { headers }
-    );
+    
+    return this.httpClient.post<Product>("http://localhost:9090/addNewProduct", product);
   }
 
   public getAllProducts() {
@@ -29,21 +20,11 @@ export class ProductService {
   }
 
   public getProductDetailsById(productId: number) {
-    const token = this.userAuth.getToken();
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-    return this.httpClient.get<Product>("http://localhost:9090/getProductDetailsById/" + productId, { headers });
+    return this.httpClient.get<Product>("http://localhost:9090/getProductDetailsById/" + productId);
   }
 
 
   public deleteProduct(productId: number) {
-    const token = this.userAuth.getToken();
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-    return this.httpClient.delete("http://localhost:9090/deleteProductDetails/" + productId, { headers });
+    return this.httpClient.delete("http://localhost:9090/deleteProductDetails/" + productId);
   }
 }
