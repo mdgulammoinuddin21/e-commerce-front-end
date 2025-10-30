@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 export class ProductViewDetails implements OnInit {
 
   product!: Product;
+  selectedProductIndex=0;
 
   constructor(
     private activatedRoute: ActivatedRoute
@@ -23,5 +24,8 @@ export class ProductViewDetails implements OnInit {
     this.product = this.activatedRoute.snapshot.data['product'];
     console.log(this.product);
     
+  }
+  changeIndex(index: number) {
+    this.selectedProductIndex=index;
   }
 }
