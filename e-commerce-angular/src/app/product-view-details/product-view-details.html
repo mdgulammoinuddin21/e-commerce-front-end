@@ -31,7 +31,7 @@
                     <b>Rs. {{product.productDiscountedPrice}}</b>&nbsp;&nbsp;<b style="text-decoration: line-through;">{{product.productActualPrice}}</b>
                 </div>
                 <div class="mt-5 text-center">
-                    <button mat-raised-button color="warn" style="width: 200px; background-color: rgb(242, 224, 224);">Buy Now</button>
+                    <button mat-raised-button color="warn" style="width: 200px; background-color: rgb(242, 224, 224);" (click)="buyProduct(product.productId)">Buy Now</button>
                 </div>
 
 

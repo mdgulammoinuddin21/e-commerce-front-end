@@ -9,6 +9,9 @@ import { AddNewProduct } from './add-new-product/add-new-product';
 import { ShowProductDetails } from './show-product-details/show-product-details';
 import { ProductResolve } from './product-resolve';
 import { ProductViewDetails } from './product-view-details/product-view-details';
+import { BuyProduct } from './buy-product/buy-product';
+import { BuyProductResolver } from './buy-product-resolver';
+
 
 export const routes: Routes = [
     {path:'', component:Home},
@@ -22,5 +25,10 @@ export const routes: Routes = [
         }
     },
     {path:'showProductDetails', component:ShowProductDetails},
-    {path:'productViewDetails', component:ProductViewDetails, resolve: { product: ProductResolve }}
+    {path:'productViewDetails', component:ProductViewDetails, resolve: { product: ProductResolve }},
+    {path:'buyProduct', component:BuyProduct, canActivate:[AuthGuard] , data:{roles:['User']},
+        resolve: {
+            productDetails: BuyProductResolver
+        }
+    }
 ];

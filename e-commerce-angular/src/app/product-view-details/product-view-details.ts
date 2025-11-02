@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../_model/product.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CommonModule } from '@angular/common';
@@ -17,7 +17,8 @@ export class ProductViewDetails implements OnInit {
   selectedProductIndex=0;
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -27,5 +28,11 @@ export class ProductViewDetails implements OnInit {
   }
   changeIndex(index: number) {
     this.selectedProductIndex=index;
+  }
+
+  buyProduct(productId: number) {
+    this.router.navigate(['/buyProduct', {
+      isSingleProductCheckout: true,id: productId
+    }]);
   }
 }
