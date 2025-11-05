@@ -12,6 +12,7 @@ import { ProductViewDetails } from './product-view-details/product-view-details'
 import { BuyProduct } from './buy-product/buy-product';
 import { BuyProductResolver } from './buy-product-resolver';
 import { OrderConfirmation } from './order-confirmation/order-confirmation';
+import { Register } from './register/register';
 
 
 export const routes: Routes = [
@@ -32,5 +33,6 @@ export const routes: Routes = [
             productDetails: BuyProductResolver
         }
     },
-    {path:'orderConfirm', component:OrderConfirmation, canActivate:[AuthGuard] , data:{roles:['User']}}
+    {path:'orderConfirm', component:OrderConfirmation, canActivate:[AuthGuard] , data:{roles:['User']}},
+    {path:'register', component:Register}
 ];

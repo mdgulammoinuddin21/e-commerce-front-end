@@ -1,0 +1,80 @@
+<div class="container mt-5">
+  <div class="card" style="padding: 20px;">
+    <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          type="text"
+          ngModel
+          name="userName"
+          id="userName"
+          placeholder="Enter username"
+        />
+        <mat-hint>Username</mat-hint>
+      </mat-form-field>
+      <br /><br />
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>User First Name</mat-label>
+        <input
+          matInput
+          type="text"
+          ngModel
+          name="userFirstName"
+          id="userFirstName"
+          placeholder="First name"
+        />
+        <mat-hint>First name</mat-hint>
+      </mat-form-field>
+      <br /><br />
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>User Last Name</mat-label>
+        <input
+          matInput
+          type="text"
+          ngModel
+          name="userLastName"
+          id="userLastName"
+          placeholder="Last name"
+        />
+        <mat-hint>Last name</mat-hint>
+      </mat-form-field>
+      <br /><br />
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          type="password"
+          ngModel
+          name="userPassword"
+          id="userPassword"
+          placeholder="Enter password"
+        />
+        <mat-hint>Password</mat-hint>
+      </mat-form-field>
+      <br /><br />
+
+      <button
+        mat-flat-button
+        color="primary"
+        class="w-100"
+        type="submit"
+        matButton="filled"
+      >
+        Register
+      </button>
+    </form>
+
+    <div class="text-center mt-3">
+      <p>
+        Already have an account?
+        <a routerLink="/login" style="text-decoration: none;cursor: pointer;; color: #1976d2;">
+          Login here
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

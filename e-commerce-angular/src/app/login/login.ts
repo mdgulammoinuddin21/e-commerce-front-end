@@ -41,4 +41,7 @@ export class Login {
       }
     );
   }
+  registerUser() {
+    this.router.navigate(['/register']);
+  }
 }

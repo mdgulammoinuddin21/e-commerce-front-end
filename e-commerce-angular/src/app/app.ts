@@ -10,5 +10,5 @@ import { Header } from './header/header';
   styleUrls: ['./app.css']
 })
 export class App {
-  protected readonly title = signal('jwt-youtube-ui');
+  protected readonly title = signal('e-commerce-angular');
 }

@@ -18,6 +18,10 @@ export class User {
     private userAuthService: UserAuth
   ) { }
 
+  public register(registerData: any): Observable<any> {
+    return this.httpclient.post(this.PATH_OF_API + "/registerNewUser", registerData);
+  }
+
   // Login request (no token needed)
   public login(loginData: any) {
     return this.httpclient.post(

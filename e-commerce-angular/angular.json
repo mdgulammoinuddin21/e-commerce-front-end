@@ -62,10 +62,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "e-commerce-angular:build:production"
+              "buildTarget": "jwt-youtube-ui:build:production"
             },
             "development": {
-              "buildTarget": "e-commerce-angular:build:development"
+              "buildTarget": "jwt-youtube-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
