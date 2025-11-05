@@ -11,6 +11,7 @@ import { ProductResolve } from './product-resolve';
 import { ProductViewDetails } from './product-view-details/product-view-details';
 import { BuyProduct } from './buy-product/buy-product';
 import { BuyProductResolver } from './buy-product-resolver';
+import { OrderConfirmation } from './order-confirmation/order-confirmation';
 
 
 export const routes: Routes = [
@@ -30,5 +31,6 @@ export const routes: Routes = [
         resolve: {
             productDetails: BuyProductResolver
         }
-    }
+    },
+    {path:'orderConfirm', component:OrderConfirmation, canActivate:[AuthGuard] , data:{roles:['User']}}
 ];

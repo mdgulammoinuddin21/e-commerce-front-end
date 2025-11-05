@@ -5,7 +5,7 @@ import { OrderDetails } from '../_model/order-details.model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Product } from '../_model/product.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../_services/product-service';
 import { CommonModule } from '@angular/common';
 
@@ -28,7 +28,8 @@ export class BuyProduct {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private productService:ProductService
+    private productService:ProductService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +52,7 @@ export class BuyProduct {
       (resp) => {
         console.log(resp);
         orderForm.reset();
+        this.router.navigate(['/orderConfirm']);
       },
       (err) => {
         console.log(err);
