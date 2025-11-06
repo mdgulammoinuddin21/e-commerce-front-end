@@ -4,10 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-product-view-details',
-  imports: [MatButtonModule,MatGridListModule,CommonModule],
+  imports: [MatButtonModule,MatGridListModule,CommonModule,MatIconModule],
   templateUrl: './product-view-details.html',
   styleUrl: './product-view-details.css'
 })

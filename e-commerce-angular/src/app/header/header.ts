@@ -5,10 +5,13 @@ import { User } from '../_services/user';
 import { CommonModule, NgIf } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink,NgIf,CommonModule,MatToolbarModule,MatButtonModule],
+  imports: [RouterLink,NgIf,CommonModule,MatToolbarModule,MatButtonModule,MatIconModule,MatDividerModule,MatMenuModule],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })

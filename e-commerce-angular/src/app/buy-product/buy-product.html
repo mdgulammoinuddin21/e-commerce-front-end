@@ -1,102 +1,136 @@
-<div class="container mt-5">
-  <div class="card p-3">
-    <div class="row">
-      <div class="col-6">
+<div class="checkout-container">
+  <div class="checkout-card">
+    <div class="checkout-header">
+      <h2>Checkout</h2>
+      <p>Complete your purchase</p>
+    </div>
 
-        <form #orderForm="ngForm" (ngSubmit)="placeOrder(orderForm)">
+    <div class="checkout-layout">
+      <!-- Shipping Information -->
+      <div class="shipping-section">
+        <div class="section-header">
+          <mat-icon>location_on</mat-icon>
+          <h3>Shipping Information</h3>
+        </div>
 
+        <form #orderForm="ngForm" (ngSubmit)="placeOrder(orderForm)" class="shipping-form">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Full name</mat-label>
+            <mat-label>Full Name</mat-label>
             <input
               matInput
-              placeholder="Full name"
+              placeholder="Enter your full name"
               [(ngModel)]="orderDetails.fullName"
               name="fullName"
               required>
+            <mat-icon matSuffix>person</mat-icon>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Full address</mat-label>
-            <input
+            <mat-label>Full Address</mat-label>
+            <textarea
               matInput
-              placeholder="Full address"
+              placeholder="Enter your complete address"
               [(ngModel)]="orderDetails.fullAddress"
               name="fullAddress"
-              required>
+              rows="3"
+              required></textarea>
+            <mat-icon matSuffix>home</mat-icon>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Contact number</mat-label>
-            <input
-              matInput
-              placeholder="Contact number"
-              [(ngModel)]="orderDetails.contactNumber"
-              name="contactNumber"
-              required>
-          </mat-form-field>
+          <div class="contact-fields">
+            <mat-form-field appearance="outline" class="contact-field">
+              <mat-label>Contact Number</mat-label>
+              <input
+                matInput
+                placeholder="Primary number"
+                [(ngModel)]="orderDetails.contactNumber"
+                name="contactNumber"
+                required>
+              <mat-icon matSuffix>call</mat-icon>
+            </mat-form-field>
 
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Alternate contact number</mat-label>
-            <input
-              matInput
-              placeholder="Alternate contact number"
-              [(ngModel)]="orderDetails.alternateContactNumber"
-              name="alternateContactNumber"
-              required>
-          </mat-form-field>
+            <mat-form-field appearance="outline" class="contact-field">
+              <mat-label>Alternate Number</mat-label>
+              <input
+                matInput
+                placeholder="Secondary number"
+                [(ngModel)]="orderDetails.alternateContactNumber"
+                name="alternateContactNumber"
+                required>
+              <mat-icon matSuffix>phone_iphone</mat-icon>
+            </mat-form-field>
+          </div>
 
-          <div align="right">
-            <button type="submit" mat-stroked-button color="primary" [disabled]="!orderForm.valid">
+          <div class="form-actions">
+            <button type="submit" mat-raised-button color="primary" class="place-order-btn" [disabled]="!orderForm.valid">
+              <mat-icon>shopping_bag</mat-icon>
               Place Order
             </button>
           </div>
-
         </form>
-
-
       </div>
 
-      <div class="col-6">
-        <table class="table">
-          <thead class="thead">
-            <tr>
-              <th>Name</th>
-              <th>Amount</th>
-              <th>Quantity</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody class="tbody">
-            <tr *ngFor="let product of productDetails">
-              <td>{{ product.productName }}</td>
-              <td>{{ product.productDiscountedPrice }}</td>
-              <td>
-                <select
-                  #quantity
-                  class="form-select"
-                  [ngModel]="getQuantityForProduct(product.productId)"
-                  (change)="onQuantityChanged(quantity.value, product.productId)">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
-              </td>
-              <td>
-                {{ getCalculatedTotal(product.productId, product.productDiscountedPrice) }}
-              </td>
-            </tr>
+      <!-- Order Summary -->
+      <div class="order-summary-section">
+        <div class="section-header">
+          <mat-icon>receipt</mat-icon>
+          <h3>Order Summary</h3>
+        </div>
 
-            <tr>
-              <td></td>
-              <td></td>
-              <td><b>Total</b></td>
-              <td><strong>{{ getCalculatedGrandTotal() }}</strong></td>
-            </tr>
+        <div class="order-table-container">
+          <table class="order-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of productDetails" class="product-row">
+                <td class="product-name">{{ product.productName }}</td>
+                <td class="product-price">₹{{ product.productDiscountedPrice }}</td>
+                <td class="product-quantity">
+                  <mat-form-field appearance="outline" class="quantity-select">
+                    <mat-select
+                      [value]="getQuantityForProduct(product.productId).toString()"
+                      (selectionChange)="onQuantityChanged($event.value, product.productId)">
+                      <mat-option value="1">1</mat-option>
+                      <mat-option value="2">2</mat-option>
+                      <mat-option value="3">3</mat-option>
+                      <mat-option value="4">4</mat-option>
+                      <mat-option value="5">5</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td class="product-total">
+                  ₹{{ getCalculatedTotal(product.productId, product.productDiscountedPrice) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-          </tbody>
-        </table>
+          <div class="order-total">
+            <div class="total-line">
+              <span>Subtotal</span>
+              <span>₹{{ getCalculatedGrandTotal() }}</span>
+            </div>
+            <div class="total-line">
+              <span>Shipping</span>
+              <span>Free</span>
+            </div>
+            <div class="total-line grand-total">
+              <span>Total Amount</span>
+              <span>₹{{ getCalculatedGrandTotal() }}</span>
+            </div>
+          </div>
+        </div>
 
-
+        <div class="security-notice">
+          <mat-icon>security</mat-icon>
+          <span>Your payment information is secure and encrypted</span>
+        </div>
       </div>
     </div>
   </div>

@@ -1,40 +1,78 @@
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-6">
-            <div class="card image-container p-3">
-                <img [src]="product.productImages[selectedProductIndex].url" class="product-zoom-image">
+<div class="product-detail-container">
+    <div class="product-layout">
+        <!-- Product Images Section -->
+        <div class="image-section">
+            <div class="main-image-container">
+                <img [src]="product.productImages[selectedProductIndex].url" 
+                     [alt]="product.productName"
+                     class="main-product-image">
             </div>
 
-            <div class="mt-2">
-                <mat-grid-list cols="3" gutterSize="10" rowHeight="1:1">
-                    <mat-grid-tile *ngFor = "let file of product.productImages; let i = index" 
-                                    (click) = "changeIndex(i)" 
-                                    style="border: 1px solid lightgrey; cursor: pointer;">
-                        <img [src]="file.url" height="100px">
+            <div class="thumbnail-gallery">
+                <mat-grid-list cols="4" gutterSize="8" rowHeight="1:1">
+                    <mat-grid-tile *ngFor="let file of product.productImages; let i = index" 
+                                  (click)="changeIndex(i)" 
+                                  [class.active]="i === selectedProductIndex"
+                                  class="thumbnail-tile">
+                        <img [src]="file.url" 
+                             [alt]="product.productName + ' thumbnail ' + (i + 1)"
+                             class="thumbnail-image">
                     </mat-grid-tile>
-</mat-grid-list>
-
+                </mat-grid-list>
             </div>
-
         </div>
 
-        <div class="col-6">
-            <div class="product-information">
-                <div class="mt-3">
-                    <h2>{{product.productName}}</h2>
+        <!-- Product Information Section -->
+        <div class="info-section">
+            <div class="product-header">
+                <h1 class="product-title">{{product.productName}}</h1>
+                <div class="product-rating">
+                    <mat-icon>star</mat-icon>
+                    <mat-icon>star</mat-icon>
+                    <mat-icon>star</mat-icon>
+                    <mat-icon>star</mat-icon>
+                    <mat-icon>star_half</mat-icon>
+                    <span class="rating-text">(4.5)</span>
                 </div>
-                <div class="mt-3">
-                    Description: <br>
-                    {{product.productDescription}}
-                </div>
-                <div class="mt-3">
-                    <b>Rs. {{product.productDiscountedPrice}}</b>&nbsp;&nbsp;<b style="text-decoration: line-through;">{{product.productActualPrice}}</b>
-                </div>
-                <div class="mt-5 text-center">
-                    <button mat-raised-button color="warn" style="width: 200px; background-color: rgb(242, 224, 224);" (click)="buyProduct(product.productId)">Buy Now</button>
-                </div>
+            </div>
 
+            <div class="product-description">
+                <h3>Product Description</h3>
+                <p>{{product.productDescription}}</p>
+            </div>
 
+            <div class="pricing-section">
+                <div class="current-price">₹{{product.productDiscountedPrice}}</div>
+                <div class="original-price">₹{{product.productActualPrice}}</div>
+                <div class="discount-badge">
+                    Save ₹{{product.productActualPrice - product.productDiscountedPrice}}
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button mat-raised-button color="warn" class="buy-now-btn" (click)="buyProduct(product.productId)">
+                    <mat-icon>flash_on</mat-icon>
+                    Buy Now
+                </button>
+                <button mat-stroked-button color="primary" class="cart-btn">
+                    <mat-icon>add_shopping_cart</mat-icon>
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product-features">
+                <div class="feature-item">
+                    <mat-icon>local_shipping</mat-icon>
+                    <span>Free Delivery</span>
+                </div>
+                <div class="feature-item">
+                    <mat-icon>assignment_return</mat-icon>
+                    <span>7 Days Return</span>
+                </div>
+                <div class="feature-item">
+                    <mat-icon>security</mat-icon>
+                    <span>1 Year Warranty</span>
+                </div>
             </div>
         </div>
     </div>

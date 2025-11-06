@@ -8,10 +8,13 @@ import { Product } from '../_model/product.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../_services/product-service';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-buy-product',
-  imports: [MatFormFieldModule,FormsModule,MatButtonModule,MatInputModule,CommonModule],
+  imports: [MatFormFieldModule,FormsModule,MatButtonModule,MatInputModule,CommonModule,MatIconModule,MatOptionModule,MatSelectModule],
   templateUrl: './buy-product.html',
   styleUrl: './buy-product.css'
 })
@@ -92,5 +95,11 @@ export class BuyProduct {
     return grandTotal;
   }
 
+
+  getProductQuantityIndex(productId: number): number {
+    return this.orderDetails.orderProductQuantityList.findIndex(
+      (productQuantity) => productQuantity.productId === productId
+    );
+  }
 
 }

@@ -10,14 +10,18 @@ import { ShowProductImagesDialog } from '../show-product-images-dialog/show-prod
 import { ImageProcessing } from '../image-processing';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-show-product-details',
-  imports: [MatTableModule, MatIconModule, MatButtonModule, MatDialogModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule, MatDialogModule,CommonModule],
   templateUrl: './show-product-details.html',
   styleUrl: './show-product-details.css'
 })
 export class ShowProductDetails implements OnInit {
+  pageNumber:number  = 0;
+  showTable=false;
+  showLoadMoreProduct = false;
   displayedColumns: string[] = ['ID', 'Product Name', 'Product Description', 'Product Actual Price', 'Product Discounted Price', 'Images', 'Edit', 'Delete'];
   productDetails : Product[] = [];
   constructor(
@@ -32,7 +36,8 @@ export class ShowProductDetails implements OnInit {
   }
 
   public getAllProducts() {
-    this.productService.getAllProducts()
+    this.showTable=false;
+    this.productService.getAllProducts(this.pageNumber)
       .pipe(
         map((x: Product[], i) =>
           x.map((product: Product) =>
@@ -42,8 +47,15 @@ export class ShowProductDetails implements OnInit {
       )
       .subscribe({
         next: (resp: Product[]) => {
-          console.log(resp);
-          this.productDetails = resp;
+          resp.forEach(product => this.productDetails.push(product));
+          console.log(this.productDetails);
+          this.showTable=true;
+
+          if(resp.length > 0) {
+            this.showLoadMoreProduct=true;
+          }else {
+            this.showLoadMoreProduct=false;
+          }
         },
         error: (error: HttpErrorResponse) => {
           console.log(error);
@@ -78,5 +90,10 @@ export class ShowProductDetails implements OnInit {
 
   editProductDetails(productId: number) {
     this.router.navigate(['/addNewProduct', {productId : productId}]);
+  }
+
+  loadMoreProducts() {
+    this.pageNumber = this.pageNumber + 1;
+    this.getAllProducts();
   }
 }

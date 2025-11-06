@@ -1,33 +1,42 @@
-<div class="container mt-5">
-    <div class="card" style="padding: 20px;">
-        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Username</mat-label>
-                <input matInput type="text" ngModel name="userName" id="userName" placeholder="Enter username">
-                <mat-hint>Username</mat-hint>
-            </mat-form-field>
-            <br><br>
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Password</mat-label>
-                <input matInput type="password" ngModel name="userPassword" id="userPassword"
-                    placeholder="Enter password">
-                <mat-hint>Password</mat-hint>
-            </mat-form-field>
-
-            <button mat-flat-button color="primary" class="w-100" type="submit" matButton="filled">Login</button>
-        </form>
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h2>Welcome Back</h2>
+      <p>Please sign in to your account</p>
     </div>
-    <div class="text-center">
-        <br />
-        <button
-            class="w-20"
-            mat-raised-button
-            type="button"
-            color="primary"
-            (click)= "registerUser()"
-        >
-            Create an account
+
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" class="login-form">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" ngModel name="userName" id="userName" placeholder="Enter your username" required>
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-hint>Enter your username</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" ngModel name="userPassword" id="userPassword" 
+               placeholder="Enter your password" required>
+        <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword" 
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-    </div>
+        <mat-hint>Enter your password</mat-hint>
+      </mat-form-field>
 
+      <button mat-flat-button color="primary" class="login-btn" type="submit" [disabled]="loginForm.invalid">
+        <mat-icon>login</mat-icon>
+        Sign In
+      </button>
+    </form>
+
+    <div class="register-link">
+      <p>
+        Don't have an account?
+        <a routerLink="/register" class="register-text">
+          Create account
+        </a>
+      </p>
+    </div>
+  </div>
 </div>
