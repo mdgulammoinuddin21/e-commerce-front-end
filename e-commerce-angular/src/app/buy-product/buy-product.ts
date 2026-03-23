@@ -11,7 +11,8 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-
+// import Razorpay from 'razorpay';
+declare var Razorpay: any;
 @Component({
   selector: 'app-buy-product',
   imports: [MatFormFieldModule,FormsModule,MatButtonModule,MatInputModule,CommonModule,MatIconModule,MatOptionModule,MatSelectModule],
@@ -20,12 +21,14 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class BuyProduct {
   productDetails: Product[] = [];
+  isSingleProductCheckout: string | null = '';
 
   orderDetails: OrderDetails = {
     fullName: '',
     fullAddress: '',
     contactNumber: '',
     alternateContactNumber: '',
+    transactionId: '',
     orderProductQuantityList: []
   };
 
@@ -37,6 +40,7 @@ export class BuyProduct {
 
   ngOnInit(): void {
     this.productDetails = this.activatedRoute.snapshot.data['productDetails'];
+    this.isSingleProductCheckout = this.activatedRoute.snapshot.paramMap.get("isSingleProductCheckout");
 
     this.productDetails.forEach(
       x => this.orderDetails.orderProductQuantityList.push({
@@ -51,7 +55,7 @@ export class BuyProduct {
     
   }
   public placeOrder(orderForm: NgForm) {
-    this.productService.placeOrder(this.orderDetails).subscribe(
+    this.productService.placeOrder(this.orderDetails,this.isSingleProductCheckout).subscribe(
       (resp) => {
         console.log(resp);
         orderForm.reset();
@@ -100,6 +104,66 @@ export class BuyProduct {
     return this.orderDetails.orderProductQuantityList.findIndex(
       (productQuantity) => productQuantity.productId === productId
     );
+  }
+
+  createTransactionAndPlaceOrder(orderForm: NgForm) {
+    let amount = this.getCalculatedGrandTotal();
+    this.productService.createTransaction(amount).subscribe(
+      (response)=>{
+        console.log(response);
+        this.openTransactionModal(response,orderForm);
+      },
+      (error)=>{
+        console.log(error);
+        
+      }
+    );
+  }
+
+  openTransactionModal(response: any,orderForm: NgForm) {
+      var options = {
+          order_id: response.orderId,
+          key: response.key,
+          amount: response.amount,
+          currency: response.currency,
+          name: 'Learn programming yourself',
+          description: 'Payment of online shopping',
+          image: 'https://cdn.pixabay.com/photo/2023/01/22/13/46/swans-7736415_640.jpg',
+          handler: (response: any) => {
+              if(response != null && response.razorpay_payment_id != null) {
+                  this.processResponse(response, orderForm);
+              } else {
+                  alert("Payment failed.");
+              }
+          },
+          prefill: {
+              name: 'LPY',
+              email: 'LPY@GMAIL.COM',
+              contact: '90909090'
+          },
+          notes: {
+              address: 'Online Shopping'
+          },
+          theme: {
+              color: '#3399cc'
+          },
+          method: {
+              upi: '1',  // Explicitly enable UPI
+              card: '1',
+              netbanking: '1',
+              wallet: '1'
+          }
+      };
+      
+      var razorpay = new Razorpay(options);
+      razorpay.open();
+  }
+
+  processResponse(response: any,orderForm: NgForm) {
+    this.orderDetails.transactionId = response.razorpay_payment_id;
+    this.placeOrder(orderForm);
+    console.log('Payment Response:', response);
+    // Handle the payment response here
   }
 
 }

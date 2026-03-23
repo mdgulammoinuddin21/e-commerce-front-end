@@ -50,11 +50,11 @@
             </div>
 
             <div class="action-buttons">
-                <button mat-raised-button color="warn" class="buy-now-btn" (click)="buyProduct(product.productId)">
+                <button mat-raised-button class="buy-now-btn" style="background-color: green; color: white;" (click)="buyProduct(product.productId)">
                     <mat-icon>flash_on</mat-icon>
                     Buy Now
                 </button>
-                <button mat-stroked-button color="primary" class="cart-btn">
+                <button mat-stroked-button color="primary" class="cart-btn" (click)="addToCart(product.productId)">
                     <mat-icon>add_shopping_cart</mat-icon>
                     Add to Cart
                 </button>

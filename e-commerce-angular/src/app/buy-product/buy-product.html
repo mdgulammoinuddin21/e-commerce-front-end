@@ -13,7 +13,7 @@
           <h3>Shipping Information</h3>
         </div>
 
-        <form #orderForm="ngForm" (ngSubmit)="placeOrder(orderForm)" class="shipping-form">
+        <form #orderForm="ngForm" (ngSubmit)="createTransactionAndPlaceOrder(orderForm)" class="shipping-form">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Full Name</mat-label>
             <input

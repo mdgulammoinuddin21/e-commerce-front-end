@@ -11,10 +11,12 @@ import { ImageProcessing } from '../image-processing';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-show-product-details',
-  imports: [MatTableModule, MatIconModule, MatButtonModule, MatDialogModule,CommonModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule, MatDialogModule,CommonModule,MatFormFieldModule,MatInputModule],
   templateUrl: './show-product-details.html',
   styleUrl: './show-product-details.css'
 })
@@ -35,9 +37,9 @@ export class ShowProductDetails implements OnInit {
     this.getAllProducts(); 
   }
 
-  public getAllProducts() {
+  public getAllProducts(searchKey: string = "") {
     this.showTable=false;
-    this.productService.getAllProducts(this.pageNumber)
+    this.productService.getAllProducts(this.pageNumber,searchKey)
       .pipe(
         map((x: Product[], i) =>
           x.map((product: Product) =>
@@ -95,5 +97,12 @@ export class ShowProductDetails implements OnInit {
   loadMoreProducts() {
     this.pageNumber = this.pageNumber + 1;
     this.getAllProducts();
+  }
+
+  searchByKeyword(searchKey: string) {
+    console.log(searchKey);
+    this.pageNumber = 0;
+    this.productDetails = [];
+    this.getAllProducts(searchKey);
   }
 }

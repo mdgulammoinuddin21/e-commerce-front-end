@@ -1,4 +1,15 @@
 <div class="container mt-5">
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Search any product</mat-label>
+    <input matInput
+    #searchkeyword
+    (keyup)="searchByKeyword(searchkeyword.value)"
+    name="searchKey"
+    id="searchKey"
+    placeholder="Search any product">
+  </mat-form-field>
+
   <div class="table-container mat-elevation-z8" *ngIf="showTable">
     <table mat-table [dataSource]="productDetails" class="custom-table">
 
@@ -62,7 +73,7 @@
     </table>
   </div>
   <div class="text-center p-5">
-  <button type="button" mat-raised-button color="primary" (click)= "loadMoreProducts()" *ngIf= "showLoadMoreProduct">
+  <button type="button" mat-raised-button style="background-color: green; color: white;" (click)= "loadMoreProducts()" *ngIf= "showLoadMoreProduct">
     Load more
   </button>
 </div>

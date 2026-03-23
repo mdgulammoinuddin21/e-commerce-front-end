@@ -13,6 +13,9 @@ import { BuyProduct } from './buy-product/buy-product';
 import { BuyProductResolver } from './buy-product-resolver';
 import { OrderConfirmation } from './order-confirmation/order-confirmation';
 import { Register } from './register/register';
+import { Cart } from './cart/cart';
+import { MyOrders } from './my-orders/my-orders';
+import { OrderInformation } from './order-information/order-information';
 
 
 export const routes: Routes = [
@@ -26,13 +29,16 @@ export const routes: Routes = [
             product: ProductResolve
         }
     },
-    {path:'showProductDetails', component:ShowProductDetails},
+    {path:'showProductDetails', component:ShowProductDetails, canActivate:[AuthGuard] , data:{roles:['Admin']},},
+    {path:'orderInformation', component:OrderInformation, canActivate:[AuthGuard] , data:{roles:['Admin']},},
     {path:'productViewDetails', component:ProductViewDetails, resolve: { product: ProductResolve }},
     {path:'buyProduct', component:BuyProduct, canActivate:[AuthGuard] , data:{roles:['User']},
         resolve: {
             productDetails: BuyProductResolver
         }
     },
+    {path:'cart', component:Cart, canActivate:[AuthGuard] , data:{roles:['User']},},
     {path:'orderConfirm', component:OrderConfirmation, canActivate:[AuthGuard] , data:{roles:['User']}},
+    {path:'myOrders', component:MyOrders, canActivate:[AuthGuard] , data:{roles:['User']}},
     {path:'register', component:Register}
 ];

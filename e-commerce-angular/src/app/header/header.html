@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" class="main-toolbar">
   <div class="toolbar-content">
-    <span class="brand">E - Commerce Application</span>
+    <span class="brand" routerLink="/" style="cursor: pointer;">Shopkart</span>
 
     <span class="space-buttons"></span>
 
@@ -22,6 +22,17 @@
       <mat-icon>home</mat-icon>
       Home
     </button>
+
+    <button *ngIf="!isAdmin()" mat-raised-button color="primary" routerLink="/cart" class="nav-btn">
+      <mat-icon>shopping_cart</mat-icon>
+      Cart
+    </button>
+
+    <button *ngIf="!isAdmin()"  mat-raised-button color="primary" routerLink="/myOrders" class="nav-btn">
+      <mat-icon>receipt_long</mat-icon>
+      My Orders  
+    </button>
+    
     <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/addNewProduct" class="nav-btn">
       <mat-icon>add_circle</mat-icon>
       Add New Product
@@ -29,6 +40,11 @@
     <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/showProductDetails" class="nav-btn">
       <mat-icon>inventory_2</mat-icon>
       Show Product Details
+    </button>
+
+    <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/orderInformation" class="nav-btn">  
+      <mat-icon>receipt</mat-icon>
+      Order Information      
     </button>
   </div>
 </mat-toolbar>
